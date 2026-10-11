@@ -1,0 +1,423 @@
+﻿PERMITIMPACT AI
+Refinery Air-PermitChange Deployment Agent
+Product & Build Specification
+
+
+One-sentence product definition
+An AI agent for refinery environmental teams that compares revised air permits with the current permit, maps changed obligations to facility-specific assets and controls, and produces a human-reviewed implementation plan with traceable evidence.
+
+Field
+Specification
+Document purpose
+Implementation handoff for a portfolio-grade working prototype
+Primary user
+Refinery environmental / air-quality engineer
+Primary trigger
+Draft, amended, reissued, or renewed air permit
+Core outcome
+Changed permit clause → affected facility controls → implementation evidence
+V1 environment
+Synthetic refinery with realistic but fictional data
+Critical boundary
+AI assists analysis; a qualified human owns regulatory interpretation and approval
+
+Version 1.0  |  October 2026
+
+1. Mission
+Build a convincing vertical AI implementation that demonstrates how an agent can turn a dense regulatory change into concrete, facility-specific operational work. The prototype should feel like software built for one refinery, not a generic compliance chatbot.
+
+The core transformation
+Before: a 1,000+ page revised permit and a team manually hunting for implications.  After: a ranked change register showing exactly which assets, SOPs, monitoring rules, calculations, forms, owners, and evidence packages are affected.
+Success is not “the AI answered a question.”
+Success means the system can visibly demonstrate this chain:
+Permit change
+Affected asset
+Affected control
+Required action
+Evidence
+Human approval
+
+Portfolio objective
+The finished project should prove competence in document intelligence, RAG, structured data, agentic workflows, graph-style relationships, confidence scoring, human-in-the-loop design, auditability, and AI evaluation.
+2. Real-World Rationale
+This workflow is grounded in real refinery permitting work. Barr describes supporting Flint Hills Resources’ Pine Bend Refinery with a custom AI-assisted review of a 1,500-page draft air permit. Barr states that a traditional review would have required weeks of manual work by experienced staff. Their workflow performed line-by-line comparison, classified changes, assigned confidence, and supported expert review.
+Title V operating permits contain enforceable monitoring, recordkeeping, and reporting obligations. Large refinery enforcement actions also demonstrate that air-compliance failures can carry substantial financial consequences. This prototype is not intended to calculate legal exposure; the point is that the workflow is attached to real operational risk.
+Why this is a good AI project
+Specific trigger: a new or revised permit arrives.
+Specific buyer: environmental / air-quality compliance team.
+Specific job: understand changes and implement them correctly.
+Facility-specific context: the same permit sentence can affect different assets and controls at different sites.
+High auditability requirement: every conclusion should trace back to source text and facility evidence.
+Natural human approval point: regulatory judgments and operational changes are never silently auto-approved.
+3. User & Job To Be Done
+Persona
+What they need
+Environmental / Air Quality Engineer
+See substantive permit changes, affected equipment, required control updates, deadlines, and evidence.
+Compliance Manager
+Know which high-impact changes are unresolved and who owns them.
+Operations Engineer
+Understand exactly what operating procedure, limit, alarm, inspection, or monitoring behavior changes.
+Auditor / Reviewer
+Trace every implementation decision back to the permit clause and supporting internal evidence.
+
+Primary job statement
+
+When a revised air permit arrives…
+…help me identify what materially changed, determine where those changes touch our refinery, create the implementation actions, and prove that each action was reviewed and completed before the requirement becomes effective.
+4. Scope
+V1 must do
+Store two permit versions: current and proposed/reissued.
+Extract permit requirements into structured records with source-page citations.
+Compare old vs. new requirements using semantic and numeric change detection.
+Classify changes by impact and confidence.
+Maintain a synthetic facility model: emission units, monitoring points, SOPs, forms, calculations, training documents, and owners.
+Map changed requirements to relevant facility entities.
+Detect conflicts between new requirements and existing controls.
+Generate a proposed implementation plan.
+Create review tasks with owners, status, due date, and evidence requirements.
+Accept implementation evidence and run an AI evidence-completeness check.
+Require explicit human approval before a change is marked closed.
+Provide an audit trail showing what the AI read, inferred, proposed, and what the human approved.
+V1 explicitly does NOT do
+Submit anything to a regulator.
+Make final legal or regulatory determinations.
+Change PLC, DCS, CEMS, alarm, or plant-control settings.
+Connect to a real refinery system.
+Predict enforcement penalties.
+Replace environmental engineers or legal counsel.
+Attempt every type of air permit or every jurisdiction.
+Build billing, CRM, multi-tenant SaaS, public sign-up, or subscription management.
+5. Demo Scenario
+Create a fictional refinery named NorthRiver Refining. The demo should be deterministic enough that a reviewer can understand the full workflow in under five minutes.
+Synthetic refinery contents
+Dataset
+V1 target
+Air permit versions
+2 PDFs: Current Permit + Revised Permit
+Emission units
+20–30
+SOPs
+12–20 short documents
+Monitoring / inspection rules
+20–40 structured controls
+Forms / templates
+5–10
+Training documents
+3–6
+Responsible staff
+6–10 fictional users
+Historical monitoring values
+Optional: 6–12 months for selected units
+Known ground-truth changes
+15–25, including 4–6 high-impact examples
+
+Hero demo case
+
+Boiler B-07: NOx limit tightened
+The revised permit changes a NOx limit from 0.08 lb/MMBtu to 0.05 lb/MMBtu. The system should find the connected boiler, identify that the existing SOP and simulated alarm threshold still use the old value, detect historical periods above the proposed limit, and open an engineering-review implementation package.
+Agent finding
+Expected demo output
+Permit delta
+0.08 → 0.05 lb/MMBtu, source citations shown
+Asset match
+Boiler B-07
+Control conflict
+SOP-44 still references 0.08
+Monitoring conflict
+Simulated alert threshold = 0.075
+Historical context
+Flag selected historical periods above 0.05
+Required action
+Review SOP, monitoring threshold, calculation logic, training, and report template
+Disposition
+Human engineering approval required
+
+Secondary demo case
+Cooling Tower CT-4 changes from a monthly inspection requirement to every 14 days. The system should discover the existing monthly calendar task, SOP wording, inspection form, and training material, then create a small set of implementation actions.
+6. Core User Experience
+Screen A — Change Overview
+Total permit changes detected.
+High / medium / low impact counts.
+AI confidence distribution.
+Unresolved implementation actions.
+Changes grouped by unit, pollutant, permit section, or owner.
+Screen B — Change Detail
+The most important screen. It should tell the story of one change without requiring a chat window.
+Panel
+Content
+Permit comparison
+Old text, new text, numeric deltas, source page/section
+Interpretation
+Concise AI summary with confidence and assumptions
+Facility impact
+Matched assets and why they were matched
+Downstream conflicts
+SOPs, controls, schedules, forms, training, calculations
+Implementation plan
+Proposed tasks, owner, due date, required evidence
+Review
+Approve / reject / edit with reviewer note
+
+Screen C — Facility Graph
+Show relationships visually or as an expandable dependency tree. The purpose is not flashy graph rendering; the purpose is to make propagation obvious.
+Permit Clause 4.3.2  └─ Boiler B-07      ├─ CEMS-NOX-B07      ├─ SOP-44 Boiler Operation      ├─ Monthly NOx Calculation      ├─ Training TR-12      └─ Compliance Report Template AIR-7
+Screen D — Implementation Register
+Action title and linked permit change.
+Responsible owner.
+Due date / effective date.
+Status: proposed, in review, in progress, evidence submitted, approved, rejected.
+Evidence attachments.
+AI evidence check result.
+Human reviewer and timestamp.
+7. Agentic Workflow
+1.  Ingest. Parse both permit versions and facility documents.
+2.  Extract. Convert permit clauses into structured obligations.
+3.  Diff. Pair old and new obligations and identify additions, removals, numeric changes, frequency changes, and wording changes.
+4.  Prioritize. Score likely operational impact and confidence.
+5.  Resolve context. Search the facility model for relevant units, pollutants, monitoring systems, procedures, forms, calculations, and owners.
+6.  Propagate. Identify downstream records or controls that appear inconsistent with the revised requirement.
+7.  Plan. Generate proposed implementation actions and evidence requirements.
+8.  Review. Require a human to approve or correct the interpretation.
+9.  Verify. When evidence is submitted, check whether it appears to address the approved action.
+10.  Close. Only a human can mark the implementation complete.
+
+Agent rule
+The agent may propose, compare, search, link, rank, summarize, and verify evidence. It may not silently make a consequential compliance or operating decision.
+8. Functional Requirements
+ID
+Requirement
+Acceptance test
+FR-01
+Extract structured obligations from permits.
+At least 90% of seeded demo obligations are found with correct source section/page.
+FR-02
+Compare two permit versions.
+Seeded additions, removals, numeric changes, and frequency changes appear in the change register.
+FR-03
+Show evidence for every permit finding.
+Clicking a finding reveals the exact supporting source excerpt and location.
+FR-04
+Map changes to facility entities.
+Hero cases resolve to the correct synthetic asset and linked controls.
+FR-05
+Detect conflicts.
+The system identifies seeded old values / frequencies in SOPs or schedules.
+FR-06
+Generate implementation actions.
+Each high-impact change produces editable tasks with owner, due date, and required evidence.
+FR-07
+Support human review.
+Reviewer can approve, reject, edit, and add notes.
+FR-08
+Verify evidence.
+Submitted evidence is checked for relevance/completeness, never auto-approved.
+FR-09
+Maintain audit trail.
+Every AI output and human action is timestamped and linked.
+FR-10
+Expose uncertainty.
+Low-confidence mappings are clearly flagged instead of hidden.
+
+9. Data Model
+Use relational tables for authoritative facts. Use vector search for unstructured evidence. Relationships can be represented with join tables; a dedicated graph database is optional, not required for v1.
+Entity
+Important fields
+permit
+id, name, version, status, effective_date, file_url
+permit_requirement
+id, permit_id, section, page, raw_text, normalized_type, pollutant, unit, limit_value, frequency, confidence
+permit_change
+id, old_requirement_id, new_requirement_id, change_type, severity, summary, confidence
+facility_asset
+id, asset_code, name, asset_type, area, tags
+control
+id, asset_id, control_type, name, value, unit, frequency, source_document_id
+document
+id, title, document_type, version, file_url, effective_date
+document_chunk
+id, document_id, text, embedding, page_or_section
+relationship
+from_type, from_id, relation, to_type, to_id, confidence, evidence
+implementation_action
+id, change_id, title, owner_id, due_date, status, required_evidence
+evidence
+id, action_id, file_url, note, ai_check_status, ai_check_reason
+review_event
+id, entity_type, entity_id, reviewer_id, decision, note, timestamp
+
+10. Technical Architecture
+Next.js / React UI       │       ├── Supabase Auth + Postgres       ├── Object Storage (permit/SOP/evidence files)       ├── pgvector for document retrieval       │       └── Agent Orchestrator            ├── Permit Parser            ├── Requirement Normalizer            ├── Permit Diff Agent            ├── Facility Impact Resolver            ├── Conflict Detector            ├── Implementation Planner            └── Evidence ReviewerLLM: any strong structured-output modelDeployment: Vercel + Supabase is sufficient for the prototype
+Do not over-engineer
+No microservices.
+No Kubernetes.
+No custom vector database unless truly necessary.
+No graph database unless relational joins become painful.
+No autonomous browser agent.
+No real refinery integrations.
+Prefer explicit deterministic code for numeric comparisons, units, dates, and status transitions.
+11. AI / Retrieval Design
+Use the LLM for
+Classifying clauses and extracting structured attributes.
+Pairing semantically equivalent clauses across versions.
+Summarizing substantive wording changes.
+Generating candidate facility relationships.
+Explaining why a document/control appears affected.
+Drafting proposed implementation actions.
+Checking whether submitted evidence appears responsive to an action.
+Do NOT use the LLM alone for
+Numeric delta calculation.
+Unit conversion.
+Date arithmetic.
+Final compliance status.
+Final asset/control mapping when confidence is low.
+Closing implementation actions.
+Retrieval strategy
+Use metadata filters first, then semantic retrieval. Example: if a changed requirement mentions NOx and Boiler B-07, filter for documents tagged to B-07 / combustion / NOx before vector similarity. This prevents the system from retrieving a semantically similar but irrelevant SOP from another process unit.
+Citation contract
+
+No evidence, no claim
+Every material AI finding in the UI should carry either (a) a permit source reference, (b) an internal document reference, or (c) an explicit “inference / needs review” label.
+12. Change Types the System Must Understand
+Change type
+Example
+Handling
+Numeric limit
+0.08 → 0.05 lb/MMBtu
+Deterministic numeric comparison + high-impact review
+Frequency
+Monthly → every 14 days
+Calendar/SOP conflict search
+New requirement
+Add quarterly test
+Create new obligation and implementation path
+Removed requirement
+Monitoring condition deleted
+Flag as removed; do not automatically retire internal controls
+Method change
+Test Method A → Method B
+Find lab/SOP references and require specialist review
+Applicability wording
+Now applies to startup periods
+High uncertainty; surface for expert review
+Reporting deadline
+30 days → 15 days
+Update calendar/reporting controls
+Record retention
+3 years → 5 years
+Find record-management procedures
+
+13. Confidence & Human Review
+Confidence
+Meaning
+System behavior
+High
+Direct asset/control identifiers and clear clause delta
+Propose mapping; still require approval for consequential changes
+Medium
+Strong contextual match but not explicit
+Show rationale and alternatives; require review
+Low
+Ambiguous applicability or weak facility evidence
+Do not create authoritative mapping; ask reviewer to resolve
+
+A good prototype should visibly admit uncertainty. A wrong but confident compliance mapping is much worse than an honest unresolved item.
+14. Evaluation Plan
+Build the synthetic dataset with known ground truth. Do not evaluate by asking whether the UI “looks smart.” Evaluate each stage.
+Metric
+Target for demo
+Requirement extraction recall
+≥ 90% on seeded obligations
+Numeric/frequency delta accuracy
+100% on seeded deterministic changes
+Correct old↔new clause pairing
+≥ 90%
+Correct asset mapping
+≥ 85% overall; 100% on hero cases
+Conflict detection
+≥ 90% on deliberately seeded conflicts
+Unsupported-claim rate
+0% for high-impact findings
+Human-review coverage
+100% of high-impact changes
+
+Required test set
+5 numeric-limit changes.
+5 monitoring-frequency changes.
+3 new requirements.
+2 removed requirements.
+3 ambiguous applicability changes.
+At least 5 deliberately outdated internal controls.
+At least 3 distractor SOPs that look semantically similar but belong to the wrong asset.
+15. Build Plan
+Phase
+Deliverable
+1 — Domain model
+Synthetic refinery data, document set, ground-truth change list, database schema.
+2 — Permit intelligence
+Ingestion, structured extraction, old/new pairing, deterministic numeric/frequency diff.
+3 — Facility impact
+Asset/control retrieval, relationship model, conflict detection, evidence citations.
+4 — Workflow
+Implementation actions, owners, status machine, human review, evidence upload.
+5 — Evaluation
+Ground-truth tests, failure analysis, confidence behavior, audit trail.
+6 — Presentation
+Polished hero demo, architecture diagram, technical write-up, LinkedIn case study.
+
+Recommended sequence for the student
+1.  First make the data model work without AI.
+2.  Then make one permit clause extract correctly.
+3.  Then make one old/new pair compare correctly.
+4.  Then complete the full Boiler B-07 hero case manually with seeded relationships.
+5.  Only after the hero case works, generalize retrieval and relationship discovery.
+6.  Add the second Cooling Tower case.
+7.  Build the evaluation set before adding more features.
+8.  Polish UI last.
+16. Definition of Done
+The project is done when a reviewer can perform this exact demo:
+1.  Open NorthRiver Refining.
+2.  Select Current Permit vs. Revised Permit.
+3.  Run / view the completed comparison.
+4.  See a ranked list of substantive changes.
+5.  Open Boiler B-07 NOx change.
+6.  Inspect old/new permit citations.
+7.  See the linked asset and affected SOP / monitoring control / calculation / training items.
+8.  See why each relationship was proposed and its confidence.
+9.  Open the generated implementation actions.
+10.  Upload or select simulated evidence for one completed action.
+11.  See the AI evidence check.
+12.  Approve the action as a human reviewer.
+13.  Open the audit trail and trace the full path from permit clause to approval.
+
+Hard completion criterion
+If the demo still depends on the presenter explaining what the product is supposed to do, it is not finished. The UI must make the permit-change → facility-impact → implementation-evidence chain obvious.
+17. What to Publish on LinkedIn
+The project becomes far more valuable if the student documents engineering decisions instead of only posting the final screenshot.
+Post
+Angle
+1
+Why reviewing a 1,500-page refinery permit is an interesting AI workflow.
+2
+Why text diff is not enough: operational impact is the harder problem.
+3
+Why pure RAG is weak for facility-specific compliance mapping.
+4
+How numeric changes are handled deterministically instead of trusting an LLM.
+5
+How confidence and human review prevent false certainty.
+6
+Evaluation results: where the system failed and what was changed.
+7
+Final architecture + five-minute demo.
+
+18. Research References
+1. Barr Engineering — Accelerating air permit review with AI. Project page  Real refinery case: 1,500-page draft permit, line-by-line AI-assisted comparison, expert review.
+2. U.S. EPA — Air Emissions Monitoring for Permits. EPA page  Background on Title V monitoring, recordkeeping, reporting, and enforceability.
+3. U.S. EPA — Monitoring, Recordkeeping, and Reporting. EPA Title V page  Official Title V program materials.
+4. U.S. EPA — 2025 HF Sinclair Navajo Clean Air Act Settlement. Settlement summary  Example of significant refinery air-compliance enforcement consequences.
+19. Final Instruction to the Builder
+
+Build the workflow, not the buzzwords.
+The goal is not to say “I used agents, RAG, vectors, and a knowledge graph.” The goal is to make one realistic permit change travel through a believable refinery model until the reviewer can see exactly what must change, why, and what evidence proves it was handled.
+Start with the Boiler B-07 case. Make that single chain excellent. Then generalize. One deep, defensible workflow is more valuable than twenty shallow AI features.

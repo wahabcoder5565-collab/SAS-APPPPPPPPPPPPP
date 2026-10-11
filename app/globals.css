@@ -1,26 +1,414 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: #F8FAFC;
+  --color-foreground: #0F172A;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/*
+  Inverted theme mapping — preserved for backward compatibility
+  with dashboard, login, and other existing pages.
+  The homepage bypasses this by using explicit hex values.
+*/
+@theme {
+  --color-slate-50: #020617;
+  --color-slate-100: #0f172a;
+  --color-slate-200: #1e293b;
+  --color-slate-300: #334155;
+  --color-slate-400: #64748b;
+  --color-slate-500: #64748b;
+  --color-slate-600: #64748b;
+  --color-slate-700: #cbd5e1;
+  --color-slate-800: #e2e8f0;
+  --color-slate-900: #ffffff;
+  --color-slate-950: #f6f8fb;
+
+  --color-cyan-300: #0e7490;
+  --color-cyan-400: #0891b2;
+  --color-cyan-700: #67e8f9;
+  --color-cyan-800: #a5f3fc;
+  --color-cyan-900: #cffafe;
+  --color-cyan-950: #ecfeff;
+
+  --color-emerald-300: #047857;
+  --color-emerald-400: #059669;
+  --color-emerald-700: #6ee7b7;
+  --color-emerald-800: #a7f3d0;
+  --color-emerald-900: #d1fae5;
+  --color-emerald-950: #ecfdf5;
+
+  --color-amber-300: #b45309;
+  --color-amber-400: #d97706;
+  --color-amber-700: #fcd34d;
+  --color-amber-800: #fde68a;
+  --color-amber-900: #fef3c7;
+  --color-amber-950: #fffbeb;
+
+  --color-rose-300: #be123c;
+  --color-rose-400: #e11d48;
+  --color-rose-700: #fda4af;
+  --color-rose-800: #fecdd3;
+  --color-rose-900: #ffe4e6;
+  --color-rose-950: #fff1f2;
+
+  --color-purple-300: #1d4ed8;
+  --color-purple-400: #2563eb;
+  --color-purple-700: #93c5fd;
+  --color-purple-800: #bfdbfe;
+  --color-purple-900: #dbeafe;
+  --color-purple-950: #eff6ff;
+
+  --color-violet-700: #93c5fd;
+  --color-violet-800: #bfdbfe;
+  --color-violet-900: #dbeafe;
+  --color-violet-950: #eff6ff;
+  --color-violet-300: #1d4ed8;
+  --color-violet-400: #2563eb;
+
+  --color-blue-400: #2563eb;
+  --color-blue-800: #bfdbfe;
+  --color-blue-900: #dbeafe;
+  --color-blue-950: #eff6ff;
+
+  --color-sky-300: #0284c7;
+  --color-sky-800: #bae6fd;
+  --color-sky-900: #e0f2fe;
+  --color-sky-950: #f0f9ff;
+
+  --color-orange-300: #c2410c;
+  --color-orange-800: #fed7aa;
+  --color-orange-950: #fff7ed;
+
+  --color-red-300: #b91c1c;
+  --color-red-800: #fecaca;
+  --color-red-950: #fef2f2;
 }
 
+/* ============================================
+   FORGE DESIGN SYSTEM
+   PermitImpact AI — Professional B2B Theme
+   ============================================
+
+   Color Palette:
+   Navy:    #070B14  (hero/dark sections)
+   Dark:    #0F172A  (headings, emphasis)
+   Body:    #334155  (body text)
+   Muted:   #64748B  (secondary text)
+   Faint:   #94A3B8  (hints, disabled)
+   Border:  #E2E8F0  (default border)
+   Ghost:   #F1F5F9  (badge bg, subtle bg)
+   Alt BG:  #F8FAFC  (alternating sections)
+   White:   #FFFFFF  (cards, primary bg)
+   Accent:  #1D4ED8  (primary CTA, links)
+   Success: #047857  (verified, evidence)
+   Warn:    #92400E  (warnings)
+   Critical:#991B1B  (critical alerts)
+   ============================================ */
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #FFFFFF;
+  color: #334155;
+  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #F1F5F9; }
+::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+
+/* Selection */
+::selection { background: rgba(29, 78, 216, 0.12); color: #0F172A; }
+
+/* ── Dark Hero / Footer ── */
+.forge-dark {
+  background-color: #070B14;
+  color: #F1F5F9;
+}
+
+.forge-dark-gradient {
+  background-image:
+    radial-gradient(ellipse at 20% 40%, rgba(29, 78, 216, 0.07) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 60%, rgba(15, 118, 110, 0.04) 0%, transparent 55%);
+}
+
+.forge-dot-grid::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+}
+
+.forge-light-hero {
+  background-color: #FFFFFF;
+  background-image:
+    radial-gradient(ellipse at 50% -10%, rgba(29, 78, 216, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 85% 25%, rgba(2, 132, 199, 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 15% 35%, rgba(16, 185, 129, 0.03) 0%, transparent 50%);
+}
+
+.forge-light-grid::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(15, 23, 42, 0.045) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+}
+
+/* ── Cards ── */
+.forge-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 0.875rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.forge-card:hover {
+  border-color: #CBD5E1;
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.06);
+  transform: translateY(-2px);
+}
+
+.forge-card-dark {
+  background: rgba(15, 23, 42, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 0.875rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.forge-card-dark:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(15, 23, 42, 0.6);
+  transform: translateY(-1px);
+}
+
+/* ── Buttons ── */
+.forge-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.75rem;
+  background: #1D4ED8;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 0.625rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 3px rgba(29, 78, 216, 0.25);
+}
+.forge-btn-primary:hover {
+  background: #1E40AF;
+  box-shadow: 0 4px 14px rgba(29, 78, 216, 0.3);
+  transform: translateY(-1px);
+}
+
+.forge-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.75rem;
+  background: transparent;
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.625rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.forge-btn-outline:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.forge-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.75rem;
+  background: #FFFFFF;
+  color: #1E293B;
+  border: 1px solid #E2E8F0;
+  border-radius: 0.625rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+.forge-btn-ghost:hover {
+  border-color: #1D4ED8;
+  color: #1D4ED8;
+  box-shadow: 0 4px 12px rgba(29, 78, 216, 0.06);
+}
+
+/* ── Badges ── */
+.forge-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.1875rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  border: 1px solid;
+}
+.forge-badge-blue { background: #EFF6FF; border-color: #BFDBFE; color: #1E40AF; }
+.forge-badge-green { background: #ECFDF5; border-color: #A7F3D0; color: #047857; }
+.forge-badge-amber { background: #FFFBEB; border-color: #FDE68A; color: #92400E; }
+.forge-badge-red { background: #FEF2F2; border-color: #FECACA; color: #991B1B; }
+
+.forge-badge-dark {
+  background: rgba(29, 78, 216, 0.1);
+  border-color: rgba(29, 78, 216, 0.2);
+  color: #93C5FD;
+}
+
+/* ── Icon containers ── */
+.forge-icon-blue {
+  width: 2.5rem; height: 2.5rem;
+  border-radius: 0.625rem;
+  background: #EFF6FF;
+  border: 1px solid #DBEAFE;
+  color: #1D4ED8;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.forge-icon-green {
+  width: 2.5rem; height: 2.5rem;
+  border-radius: 0.625rem;
+  background: #ECFDF5;
+  border: 1px solid #D1FAE5;
+  color: #047857;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.forge-icon-amber {
+  width: 2.5rem; height: 2.5rem;
+  border-radius: 0.625rem;
+  background: #FFFBEB;
+  border: 1px solid #FDE68A;
+  color: #92400E;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.forge-icon-slate {
+  width: 2.5rem; height: 2.5rem;
+  border-radius: 0.625rem;
+  background: #F1F5F9;
+  border: 1px solid #E2E8F0;
+  color: #475569;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ── Section Styles ── */
+.forge-section-alt {
+  background-color: #F8FAFC;
+}
+
+.forge-divider {
+  border-bottom: 1px solid #E2E8F0;
+}
+
+/* ── Comparison Panel ── */
+.forge-compare-good {
+  background: #F0FDF9;
+  border: 1px solid #A7F3D0;
+}
+.forge-compare-bad {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+}
+
+/* ── Step indicator ── */
+.forge-step-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.625rem;
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  border-radius: 0.5rem;
+  font-size: 0.6875rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: #1D4ED8;
+}
+
+/* ── Smooth scroll ── */
+html { scroll-behavior: smooth; }
+
+/* ── Animations ── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+/* ── Glass panel (backward compat) ── */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 12px 28px -18px rgba(15, 23, 42, 0.18);
+}
+
+/* ── Industrial theme (backward compat for dashboard) ── */
+.industrial-page { background-color: #070b14; color: #f1f5f9; }
+.industrial-grid-bg {
+  background-image:
+    radial-gradient(ellipse at 50% 0%, rgba(6, 182, 212, 0.14) 0%, transparent 60%),
+    radial-gradient(ellipse at 85% 85%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
+    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+}
+.industrial-card {
+  background: rgba(13, 20, 36, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+}
+.industrial-card-hover { transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
+.industrial-card-hover:hover {
+  background: rgba(18, 28, 50, 0.88);
+  border-color: rgba(6, 182, 212, 0.45);
+  box-shadow: 0 12px 35px -10px rgba(6, 182, 212, 0.3), 0 0 1px 1px rgba(6, 182, 212, 0.35);
+  transform: translateY(-2px);
+}
+.industrial-badge-cyan { background: rgba(6, 182, 212, 0.12); border: 1px solid rgba(6, 182, 212, 0.35); color: #22d3ee; }
+.industrial-badge-emerald { background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.35); color: #34d399; }
+.industrial-badge-amber { background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.35); color: #fbbf24; }
+.industrial-badge-rose { background: rgba(244, 63, 94, 0.12); border: 1px solid rgba(244, 63, 94, 0.35); color: #fb7185; }
+.glow-btn-cyan {
+  background: linear-gradient(135deg, #0891b2 0%, #0284c7 100%);
+  box-shadow: 0 4px 20px -2px rgba(8, 145, 178, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+  transition: all 0.2s ease;
+}
+.glow-btn-cyan:hover {
+  background: linear-gradient(135deg, #06b6d4 0%, #0ea5e9 100%);
+  box-shadow: 0 6px 25px 0px rgba(6, 182, 212, 0.65), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+  transform: translateY(-1px);
 }

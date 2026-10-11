@@ -1,0 +1,26 @@
+
+> my-app@0.1.0 dev
+> next dev
+
+▲ Next.js 16.3.8 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.1.3:3000
+- Environments: .env.local
+✓ Ready in 6.4s
+✓ Running next.config.ts took 114ms
+- Experiments (use with caution):
+  · serverActions
+
+○ Compiling /login ...
+ GET /login 200 in 7.4s (next.js: 4.1s, proxy.ts: 1762ms, application-code: 1517ms)
+ GET /actions 200 in 10.8s (next.js: 4.0s, proxy.ts: 2.6s, application-code: 4.2s)
+ GET /dashboard 200 in 3.5s (next.js: 134ms, proxy.ts: 381ms, application-code: 3.0s)
+ GET /dashboard 200 in 2.2s (next.js: 15ms, proxy.ts: 253ms, application-code: 1934ms)
+ GET /assets 200 in 2.0s (next.js: 69ms, proxy.ts: 239ms, application-code: 1710ms)
+ GET /assets 200 in 1873ms (next.js: 13ms, proxy.ts: 208ms, application-code: 1651ms)
+ GET /team 200 in 1304ms (next.js: 72ms, proxy.ts: 255ms, application-code: 977ms)
+ GET /team 200 in 1739ms (next.js: 20ms, proxy.ts: 219ms, application-code: 1500ms)
+ GET /dashboard 200 in 3.1s (next.js: 32ms, proxy.ts: 727ms, application-code: 2.3s)
+(node:9632) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 drain listeners added to [Gzip]. MaxListeners is 10. Use emitter.setMaxListeners() to increase limit
+(Use `node --trace-warnings ...` to show where the warning was created)
+ GET /delta 200 in 3.8s (next.js: 176ms, proxy.ts: 498ms, application-code: 3.1s)
