@@ -4,6 +4,8 @@ import { redirect } from "next/navigation";
 import { logoutAction } from "@/app/auth/actions";
 import PersonaSwitcher from "./persona-switcher";
 import Logo from "@/components/logo";
+import ResetDemoButton from "@/components/reset-demo-button";
+import GuidedTour from "@/components/guided-tour";
 import {
   LayoutDashboard,
   FileText,
@@ -150,9 +152,11 @@ export default async function ProtectedLayout({
               currentTitle={userTitle}
             />
 
+            <ResetDemoButton />
+
             <div className="hidden lg:flex items-center gap-1.5 text-xs px-2.5 py-1.5 rounded-xl bg-emerald-950/50 border border-emerald-800/60 text-emerald-300">
               <Lock className="w-3.5 h-3.5 text-emerald-400" />
-              <span className="font-mono text-[11px]">TLS · Factory Signed</span>
+              <span className="font-mono text-[11px]">RLS Enforced · Guest Session</span>
             </div>
 
             <div className="hidden lg:flex items-center gap-1.5 text-xs px-2.5 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300">
@@ -167,6 +171,8 @@ export default async function ProtectedLayout({
           {children}
         </main>
       </div>
+
+      <GuidedTour />
     </div>
   );
 }

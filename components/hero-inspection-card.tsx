@@ -247,7 +247,7 @@ export default function HeroInspectionCard() {
               <span>Facility Operational Context & Conflict Screening</span>
             </div>
             <span className="text-[10px] font-mono text-[#475569] bg-white px-2 py-0.5 rounded border border-[#CBD5E1]">
-              Real Facility Assets
+              Synthetic Dataset
             </span>
           </div>
 

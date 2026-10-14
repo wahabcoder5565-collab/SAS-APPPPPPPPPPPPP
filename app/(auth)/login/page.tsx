@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { loginAction, demoLoginAction } from "@/app/auth/actions";
 import Logo from "@/components/logo";
-import { ShieldCheck, HardHat, UserCheck, Wrench, ArrowRight, Zap, Flame, AlertCircle, Lock } from "lucide-react";
+import { ShieldCheck, HardHat, UserCheck, Wrench, ArrowRight, Zap, Flame, AlertCircle, Info } from "lucide-react";
 
 interface LoginPageProps {
   searchParams: Promise<{ error?: string }>;
@@ -145,11 +145,11 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
           </div>
         </div>
 
-        <div className="mt-5 flex items-center justify-center gap-2 text-[11px] text-slate-500">
-          <Lock className="w-3.5 h-3.5 text-emerald-500" />
+        <div className="mt-5 flex items-start justify-center gap-2 text-[11px] text-slate-500 max-w-md mx-auto text-center">
+          <Info className="w-3.5 h-3.5 text-cyan-500 shrink-0 mt-0.5" />
           <span>
-            Secure channel · TLS certificate presented by{" "}
-            <span className="text-slate-400 font-medium">NorthRiver Refining Internal CA</span>
+            Demo accounts below. NorthRiver Refining is a synthetic environment with fabricated data, created for
+            an engineering portfolio project.
           </span>
         </div>
       </div>

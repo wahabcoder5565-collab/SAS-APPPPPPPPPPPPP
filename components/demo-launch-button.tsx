@@ -1,6 +1,7 @@
 "use client";
 
 import { useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { demoLoginAction, type RefineryRole } from "@/app/auth/actions";
 import { ArrowRight, Flame, Loader2 } from "lucide-react";
 
@@ -20,15 +21,20 @@ export default function DemoLaunchButton({
   children,
 }: DemoLaunchButtonProps) {
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
 
   const handleLaunch = () => {
     startTransition(async () => {
       try {
         await demoLoginAction(role);
-      } catch (err: any) {
+      } catch (err) {
         // Next.js redirect throws a digest error; if another error, fallback to /login
-        if (!err?.digest?.startsWith("NEXT_REDIRECT")) {
-          window.location.href = "/login";
+        const digest =
+          typeof err === "object" && err !== null && "digest" in err
+            ? (err as { digest?: unknown }).digest
+            : undefined;
+        if (typeof digest !== "string" || !digest.startsWith("NEXT_REDIRECT")) {
+          router.push("/login");
         }
       }
     });

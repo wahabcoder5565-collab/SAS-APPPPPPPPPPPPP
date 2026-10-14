@@ -4,9 +4,9 @@ import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "PermitImpact AI | Permit-to-Operations AI for Industrial Facilities",
+  title: "Wahab | Software Engineering — Full-Stack & AI Workflow Development",
   description:
-    "PermitImpact AI helps industrial teams connect permit obligations to real operations. Every Permit Change. Every Equipment Change. Reviewed in Facility Context.",
+    "Full-stack developer building practical applications that connect data, automate repetitive work and turn complex business processes into clear, reviewable software. Featuring PermitImpact AI, an independent engineering demonstration.",
 };
 
 export default function RootLayout({
@@ -15,7 +15,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable} antialiased`}>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${GeistSans.variable} ${GeistMono.variable} antialiased`}
+    >
       <body className="min-h-screen flex flex-col bg-background text-foreground selection:bg-cyan-500/25 selection:text-foreground">
         {children}
       </body>

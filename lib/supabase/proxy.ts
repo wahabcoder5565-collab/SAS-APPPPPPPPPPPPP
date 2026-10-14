@@ -36,10 +36,27 @@ export async function updateSession(request: NextRequest) {
 
   const pathname = request.nextUrl.pathname;
   const isAuthPage = pathname === "/login" || pathname === "/signup";
-  const isPublicPage = pathname === "/" || isAuthPage || pathname.startsWith("/auth");
+
+  // Only the authenticated workspace is gated. The marketing surface
+  // (/, /case-study, /engineering, /contact) and the demo entry points
+  // (/demo, /demo/launch, /auth/*) are public on purpose.
+  const PROTECTED_PREFIXES = [
+    "/dashboard",
+    "/permits",
+    "/delta",
+    "/impacts",
+    "/propagation",
+    "/actions",
+    "/assets",
+    "/audit",
+    "/team",
+  ];
+  const isProtected = PROTECTED_PREFIXES.some(
+    (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`)
+  );
 
   // If no user and trying to access protected workspace routes, redirect to login
-  if (!user && !isPublicPage) {
+  if (!user && isProtected) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
     return NextResponse.redirect(url);

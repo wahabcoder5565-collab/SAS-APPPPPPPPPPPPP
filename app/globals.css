@@ -352,6 +352,36 @@ body {
   color: #1D4ED8;
 }
 
+/* ── Workflow explorer ── */
+@keyframes wfFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+.wf-detail-enter { animation: wfFadeIn 0.35s cubic-bezier(0.4, 0, 0.2, 1) both; }
+
+.wf-connector-fill {
+  transition: width 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.wf-node {
+  transition: border-color 0.2s ease, background-color 0.2s ease,
+    box-shadow 0.2s ease, transform 0.2s ease;
+}
+.wf-node:hover { transform: translateY(-1px); }
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .wf-node:hover { transform: none; }
+}
+
 /* ── Smooth scroll ── */
 html { scroll-behavior: smooth; }
 
